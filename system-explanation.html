@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>重力储能展示平台前后端说明</title>
+    <style>
+      :root {
+        --ink: #14324a;
+        --muted: #5c7182;
+        --line: #d7e4eb;
+        --bg: #eef5f8;
+        --panel: #ffffff;
+        --nav: #12324f;
+        --primary: #0b6f8f;
+        --green: #15936f;
+        --orange: #d98522;
+        --red: #bd4b4b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--bg);
+        font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      }
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px;
+      }
+
+      .hero,
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 12px 30px rgba(20, 50, 74, 0.08);
+      }
+
+      .hero {
+        padding: 28px;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .hero img {
+        width: 240px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 12px;
+        font-size: 34px;
+        line-height: 1.22;
+      }
+
+      h2 {
+        margin-bottom: 16px;
+        font-size: 24px;
+      }
+
+      h3 {
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .tag {
+        margin-bottom: 8px;
+        color: var(--primary);
+        font-weight: 800;
+        font-size: 13px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .two {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .role {
+        display: grid;
+        gap: 12px;
+      }
+
+      .role strong {
+        display: block;
+        font-size: 22px;
+      }
+
+      .role ul,
+      .list {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .step {
+        position: relative;
+        min-height: 138px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f8fbfd;
+      }
+
+      .step::after {
+        content: "→";
+        position: absolute;
+        top: 50%;
+        right: -16px;
+        transform: translateY(-50%);
+        color: var(--primary);
+        font-size: 24px;
+        font-weight: 800;
+      }
+
+      .step:last-child::after {
+        content: "";
+      }
+
+      .no {
+        display: inline-grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        color: #fff;
+        background: var(--primary);
+        font-weight: 800;
+      }
+
+      .diagram {
+        overflow: auto;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfdfe;
+      }
+
+      svg {
+        display: block;
+        width: 100%;
+        min-width: 760px;
+        height: auto;
+      }
+
+      .api-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      .api-table th,
+      .api-table td {
+        padding: 12px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .api-table th {
+        color: #38536a;
+        background: #eef5f8;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 999px;
+        color: #fff;
+        background: var(--primary);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .good {
+        background: var(--green);
+      }
+
+      .warn {
+        background: var(--orange);
+      }
+
+      .note {
+        padding: 16px;
+        border-left: 4px solid var(--primary);
+        border-radius: 8px;
+        background: #f7fbfd;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      code {
+        padding: 2px 5px;
+        border-radius: 5px;
+        background: #edf4f7;
+        color: #12324f;
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          padding: 16px;
+        }
+
+        .hero,
+        .two,
+        .three,
+        .flow {
+          grid-template-columns: 1fr;
+        }
+
+        .step::after {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <img src="./siat-logo.png" alt="深圳先进院 SIAT logo" />
+        <div>
+          <div class="tag">SYSTEM EXPLANATION</div>
+          <h1>重力储能智能调度展示平台：前后端说明</h1>
+          <p>
+            这个页面专门解释当前项目到底在做什么。简单说：它是一个可以演示
+            “场景数据 → 规划策略 → 优化调度 → 控制建议” 的前后端系统原型。
+            前端负责页面展示和交互，后端负责生成数据、运行演示算法、返回图表和表格需要的结果。
+          </p>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <article class="card role">
+          <h2>前端是干什么的？</h2>
+          <strong>负责“看得见、点得动、展示清楚”</strong>
+          <ul>
+            <li>显示登录页、左侧四个模块和右侧工作区。</li>
+            <li>收集用户输入，比如季节、场景、SOC、权重、预测偏差。</li>
+            <li>调用后端接口，把结果画成曲线、指标卡、表格。</li>
+            <li>不再自己计算主要结果，只负责展示后端返回的数据。</li>
+          </ul>
+        </article>
+
+        <article class="card role">
+          <h2>后端是干什么的？</h2>
+          <strong>负责“算数据、跑逻辑、给结果”</strong>
+          <ul>
+            <li>根据输入生成负荷、风电、光伏、电价、净负荷。</li>
+            <li>根据场景和约束生成规划策略与滚动曲线。</li>
+            <li>根据目标权重生成 Pareto 解集和推荐调度方案。</li>
+            <li>根据预测偏差和调度结果生成下一周期控制建议。</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="card grid">
+        <h2>整个系统流程</h2>
+        <div class="flow">
+          <div class="step">
+            <span class="no">01</span>
+            <h3>多场景建模</h3>
+            <p>输入场景、季节、设备参数，输出源荷曲线和场景摘要。</p>
+          </div>
+          <div class="step">
+            <span class="no">02</span>
+            <h3>规划策略</h3>
+            <p>输入容量、启停、滚动周期，输出中长期/短期/日内策略。</p>
+          </div>
+          <div class="step">
+            <span class="no">03</span>
+            <h3>优化调度</h3>
+            <p>输入 SOC 和目标权重，输出 Pareto、推荐方案和调度表。</p>
+          </div>
+          <div class="step">
+            <span class="no">04</span>
+            <h3>实时控制建议</h3>
+            <p>输入预测模型和实时偏差，输出下一周期充放电建议。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>前后端怎么连接？</h2>
+        <div class="diagram">
+          <svg viewBox="0 0 980 360" role="img" aria-label="前后端数据流图">
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#0b6f8f"></path>
+              </marker>
+            </defs>
+
+            <rect x="30" y="45" width="260" height="260" rx="8" fill="#ffffff" stroke="#d7e4eb" />
+            <text x="160" y="85" text-anchor="middle" fill="#14324a" font-size="24" font-weight="700">前端 Vue/Vite</text>
+            <text x="62" y="130" fill="#5c7182" font-size="17">1. 用户输入参数</text>
+            <text x="62" y="165" fill="#5c7182" font-size="17">2. 点击运行按钮</text>
+            <text x="62" y="200" fill="#5c7182" font-size="17">3. 调用 /api 接口</text>
+            <text x="62" y="235" fill="#5c7182" font-size="17">4. 展示图表和表格</text>
+
+            <rect x="360" y="45" width="260" height="260" rx="8" fill="#f8fbfd" stroke="#d7e4eb" />
+            <text x="490" y="85" text-anchor="middle" fill="#14324a" font-size="24" font-weight="700">API 接口层</text>
+            <text x="392" y="130" fill="#5c7182" font-size="17">/api/health</text>
+            <text x="392" y="165" fill="#5c7182" font-size="17">/api/scenario/simulate</text>
+            <text x="392" y="200" fill="#5c7182" font-size="17">/api/optimization/run</text>
+            <text x="392" y="235" fill="#5c7182" font-size="17">/api/control/preview</text>
+
+            <rect x="690" y="45" width="260" height="260" rx="8" fill="#ffffff" stroke="#d7e4eb" />
+            <text x="820" y="85" text-anchor="middle" fill="#14324a" font-size="24" font-weight="700">后端 FastAPI</text>
+            <text x="722" y="130" fill="#5c7182" font-size="17">1. 生成源荷数据</text>
+            <text x="722" y="165" fill="#5c7182" font-size="17">2. 运行规划逻辑</text>
+            <text x="722" y="200" fill="#5c7182" font-size="17">3. 运行优化调度</text>
+            <text x="722" y="235" fill="#5c7182" font-size="17">4. 返回控制建议</text>
+
+            <line x1="290" y1="175" x2="360" y2="175" stroke="#0b6f8f" stroke-width="4" marker-end="url(#arrow)" />
+            <line x1="620" y1="175" x2="690" y2="175" stroke="#0b6f8f" stroke-width="4" marker-end="url(#arrow)" />
+            <line x1="690" y1="278" x2="620" y2="278" stroke="#15936f" stroke-width="4" marker-end="url(#arrow)" />
+            <line x1="360" y1="278" x2="290" y2="278" stroke="#15936f" stroke-width="4" marker-end="url(#arrow)" />
+            <text x="325" y="158" text-anchor="middle" fill="#0b6f8f" font-size="15">请求</text>
+            <text x="655" y="158" text-anchor="middle" fill="#0b6f8f" font-size="15">计算</text>
+            <text x="655" y="260" text-anchor="middle" fill="#15936f" font-size="15">结果</text>
+            <text x="325" y="260" text-anchor="middle" fill="#15936f" font-size="15">展示</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <article class="card">
+          <h2>现在是真实的吗？</h2>
+          <p>
+            现在已经是“真实前后端分离”。页面不是自己算结果，而是调用后端接口拿结果。
+            但是算法本身还是第一版演示算法，不是完整真实 NSGA-II，也没有接真实现场设备。
+          </p>
+          <ul class="list">
+            <li><span class="badge good">真实</span> 前端调用后端接口。</li>
+            <li><span class="badge good">真实</span> 后端根据输入返回不同数据。</li>
+            <li><span class="badge warn">模拟</span> 负荷、风电、光伏、电价样例数据。</li>
+            <li><span class="badge warn">模拟</span> 优化调度和预测控制算法。</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>为什么这样做？</h2>
+          <p>
+            这样做的好处是：会议上能演示一个完整系统，后续也能平滑升级。
+            将来有真实数据或真实算法时，只需要替换后端算法函数，前端页面不用大改。
+          </p>
+          <div class="note">
+            当前版本适合讲：系统具备“建模、规划、优化、控制建议”的完整软件形态。
+            后续版本再讲：接入真实数据、真实 NSGA-II、真实预测模型。
+          </div>
+        </article>
+      </section>
+
+      <section class="card">
+        <h2>接口说明</h2>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>接口</th>
+              <th>输入</th>
+              <th>输出</th>
+              <th>页面对应模块</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>GET /api/health</code></td>
+              <td>无</td>
+              <td>后端状态、算法版本、时间</td>
+              <td>顶部后端连接状态</td>
+            </tr>
+            <tr>
+              <td><code>GET /api/bootstrap</code></td>
+              <td>无</td>
+              <td>默认参数、默认曲线、默认优化结果</td>
+              <td>页面初始化</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/scenario/simulate</code></td>
+              <td>场景、季节、建筑类型、设备参数</td>
+              <td>源荷曲线、模型指标、场景摘要</td>
+              <td>多场景重力储能模型</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/planning/run</code></td>
+              <td>场景参数、规划参数</td>
+              <td>规划策略、日前曲线、日内滚动曲线</td>
+              <td>多时间尺度规划策略</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/optimization/run</code></td>
+              <td>场景、规划、SOC、权重、迭代参数</td>
+              <td>Pareto、推荐方案、调度表、SOC 曲线</td>
+              <td>智能优化调度算法</td>
+            </tr>
+            <tr>
+              <td><code>POST /api/control/preview</code></td>
+              <td>场景、推荐方案、预测偏差、控制模式</td>
+              <td>预测曲线、下一周期控制建议、控制表</td>
+              <td>负荷预测实时控制</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>一句话讲给别人听</h2>
+        <p>
+          这个系统目前是一套重力储能智能调度展示原型：前端负责交互和可视化，
+          后端负责生成源荷数据、规划策略、优化调度和控制建议。当前算法是可解释演示算法，
+          后续可以替换为真实 NSGA-II、真实预测模型和现场数据接口。
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
