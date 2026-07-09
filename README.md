@@ -120,7 +120,6 @@ start-mac.command
 
 ```text
 gravity-storage-showcase/
-├── public/                 # 静态资源
 ├── src/assets/             # 中建四局 logo、登录页背景等前端资源
 ├── server/                 # FastAPI 后端
 ├── src/                    # Vue 前端源码
