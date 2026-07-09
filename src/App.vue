@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref, watch } from 'vue'
+import cscecLogo from './assets/cscec4-logo.png'
 import { mockGet, mockPost } from './mockApi'
 
 const modules = [
@@ -24,7 +25,7 @@ const generated = reactive({
 })
 
 const loginForm = reactive({
-  account: 'siat-admin',
+  account: 'cscec-admin',
   password: 'demo123456',
   remember: true
 })
@@ -566,18 +567,18 @@ onMounted(bootstrap)
   <div v-if="!isLoggedIn" class="login-shell">
     <section class="login-layout">
       <div class="login-brand">
-        <img src="/siat-logo.png" alt="中国科学院深圳先进技术研究院" class="login-logo" />
+        <img :src="cscecLogo" alt="中国建筑第四工程局有限公司" class="login-logo" />
         <span>GRAVITY ENERGY STORAGE</span>
       </div>
       <div class="login-panel">
         <div class="login-card">
-          <p class="eyebrow">SIAT SHOWCASE</p>
+          <p class="eyebrow">CSCEC FOURTH BUREAU</p>
           <h1>重力储能智能调度</h1>
           <label>账号<input v-model="loginForm.account" /></label>
           <label>密码<input v-model="loginForm.password" type="password" /></label>
           <label class="check-line"><input v-model="loginForm.remember" type="checkbox" />记住登录</label>
           <button class="primary-btn" @click="submitLogin">登录系统</button>
-          <p class="hint">siat-admin / demo123456</p>
+          <p class="hint">cscec-admin / demo123456</p>
         </div>
       </div>
     </section>
@@ -586,7 +587,7 @@ onMounted(bootstrap)
   <div v-else class="app-shell">
     <aside class="sidebar">
       <div class="brand">
-        <img src="/siat-logo.png" alt="SIAT" />
+        <img :src="cscecLogo" alt="中国建筑第四工程局有限公司" />
         <strong>重力储能智能调度</strong>
         <span>模型 · 优化 · 控制</span>
       </div>
@@ -605,7 +606,7 @@ onMounted(bootstrap)
     <main class="workspace">
       <header class="topbar">
         <div>
-          <p class="tag">中国科学院深圳先进技术研究院</p>
+          <p class="tag">中国建筑第四工程局有限公司</p>
           <h1>{{ currentModule().title }}</h1>
           <p>{{ currentModule().hint }}</p>
         </div>

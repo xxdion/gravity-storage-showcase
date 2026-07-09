@@ -76,7 +76,7 @@ http://127.0.0.1:5174/
 ### 4. 登录账号
 
 ```text
-账号：siat-admin
+账号：cscec-admin
 密码：demo123456
 ```
 
@@ -120,7 +120,8 @@ start-mac.command
 
 ```text
 gravity-storage-showcase/
-├── public/                 # SIAT logo、登录页背景等静态资源
+├── public/                 # 静态资源
+├── src/assets/             # 中建四局 logo、登录页背景等前端资源
 ├── server/                 # FastAPI 后端
 ├── src/                    # Vue 前端源码
 ├── package.json            # 前端依赖与脚本
@@ -129,4 +130,3 @@ gravity-storage-showcase/
 ├── start-mac.command       # macOS 启动脚本
 └── vite.config.js          # Vite 配置与 API 代理
 ```
-

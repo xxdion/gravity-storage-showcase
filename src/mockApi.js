@@ -253,7 +253,7 @@ export function mockGet(path) {
   }
   if (path === '/api/bootstrap') {
     return {
-      demoAccount: { account: 'siat-admin', password: 'demo123456' },
+      demoAccount: { account: 'cscec-admin', password: 'demo123456' },
       options: {
         applications: ['风光峰谷蓄调', '风电消纳', '光伏平滑', '园区削峰填谷'],
         seasons: ['春季', '夏季', '秋季', '冬季'],
@@ -277,4 +277,3 @@ export function mockPost(path, payload = {}) {
   if (path === '/api/control/preview') return runControl(payload)
   throw new Error(`${path} mock not found`)
 }
-
